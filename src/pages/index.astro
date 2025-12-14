@@ -1,16 +1,115 @@
 ---
-
+import type { GetStaticPaths } from "astro";
+const quotes = [
+  "“So the whole universe,” you said, “it’s just…”",
+  "“An egg.” I answered. “Now it’s time for you to move on to your next life.”",
+  "“And I just sent you on your way.”",
+];
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro</title>
+  </head>
+  <body>
+    <main>
+      <ul>
+        {
+          quotes.map((quote) => (
+            <li>
+              <span>
+                {quote} <div class="fixed" />
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </main>
+  </body>
 </html>
+
+<style is:global>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+  }
+
+  :root {
+    line-height: 1.5em;
+    letter-spacing: 0.0125em;
+  }
+
+  body {
+    font-family: "Outfit", system-ui, sans-serif;
+    display: grid;
+    place-items: center;
+
+    background: rgba(250, 250, 250, 1);
+    color: black;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  li {
+    anchor-name: --li;
+    overflow: hidden;
+  }
+
+  span {
+    anchor-scope: --span;
+    anchor-name: --span;
+    position: relative;
+  }
+
+  .fixed {
+    pointer-events: none;
+    overflow: hidden;
+    content: "";
+    position: fixed;
+
+    container-type: inline-size;
+    top: anchor(--span top);
+    bottom: anchor(--span bottom);
+    left: anchor(--li left);
+    width: calc(anchor-size(--span width));
+  }
+
+  .fixed::before {
+    --as-a-variable: calc(100cqw / 1px);
+    --duration: calc(var(--as-a-variable) / 100 / 2 * 1s);
+
+    display: block;
+    content: "";
+    height: 100%;
+    width: 200cqw;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(250, 250, 250, 0.85),
+      transparent
+    );
+
+    animation: var(--duration) slide linear infinite;
+  }
+
+  @keyframes slide {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(100cqw);
+    }
+  }
+</style>
