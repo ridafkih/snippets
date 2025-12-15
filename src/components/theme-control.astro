@@ -1,4 +1,4 @@
-<button>
+<button class="selected">
   <div class="illustration">
     <div class="traffic-lights">
       <div class="red"></div>
@@ -16,15 +16,28 @@
   button {
     width: fit-content;
     font: inherit;
+    letter-spacing: inherit;
     outline: none;
     border: none;
     background: transparent;
+    padding: 0.625rem;
+    border-radius: 1rem;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 0.625rem;
+
+    &.selected {
+      color: var(--color-outline);
+      outline: 2.5px solid var(--color-outline);
+      background: color-mix(in srgb, var(--color-outline) 5%, transparent);
+
+      .illustration {
+        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.05));
+      }
+    }
   }
 
   .illustration {
