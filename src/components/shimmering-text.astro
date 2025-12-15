@@ -1,0 +1,16 @@
+---
+interface Props {
+  quote: string;
+}
+
+const { quote } = Astro.props;
+---
+
+<div data-quote={quote}>
+  <span class="quote-size" aria-hidden="true">{quote}</span>
+  <span class="quote-reflection">{quote}</span>
+</div>
+<style>
+  div[data-quote] {
+  }
+</style>
