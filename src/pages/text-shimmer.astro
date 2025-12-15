@@ -1,9 +1,5 @@
 ---
-const quotes = [
-  "“So the whole universe,” you said, “it’s just…”",
-  "“An egg.” I answered. “Now it’s time for you to move on to your next life.”",
-  "“And I just sent you on your way.”",
-];
+import ShimmeringText from "../components/shimmering-text.astro";
 ---
 
 <html lang="en">
@@ -16,16 +12,19 @@ const quotes = [
   </head>
   <body>
     <ul>
-      {
-        quotes.map((quote) => (
-          <li>
-            <span>
-              {quote}
-              <div aria-hidden="true" data-quote={quote} />
-            </span>
-          </li>
-        ))
-      }
+      <li>
+        <ShimmeringText
+          quote="“So the whole universe,” you said, “it’s just…”"
+        />
+      </li>
+      <li>
+        <ShimmeringText
+          quote="“An egg.” I answered. “Now it’s time for you to move on to your next life.”"
+        />
+      </li>
+      <li>
+        <ShimmeringText quote="“And I just sent you on your way.”" />
+      </li>
     </ul>
   </body>
 </html>
@@ -42,9 +41,6 @@ const quotes = [
     font-weight: 200;
     letter-spacing: 0.0125em;
     line-height: 2em;
-
-    --shimmer-light-color: #eee;
-    --shimmer-dark-color: #555;
   }
 
   html,
@@ -57,64 +53,5 @@ const quotes = [
     background: rgba(10, 10, 10, 1);
     display: grid;
     place-items: center;
-  }
-
-  li {
-    anchor-name: --li;
-  }
-
-  span {
-    anchor-scope: --span;
-    anchor-name: --span;
-    color: transparent;
-  }
-
-  span,
-  div,
-  div::before {
-    text-wrap: nowrap;
-  }
-
-  div {
-    pointer-events: none;
-    position: fixed;
-    container-type: inline-size;
-
-    top: anchor(--span top);
-    bottom: anchor(--span bottom);
-    left: anchor(--li left);
-    width: anchor-size(--span width);
-  }
-
-  div::before {
-    --span-width: calc(100cqw / 1px);
-    --scoped-animation-duration: calc(var(--span-width) / 100 / 2.5 * 1s);
-
-    content: attr(data-quote);
-
-    display: block;
-    width: 200cqw;
-
-    color: transparent;
-    background: linear-gradient(
-      to right,
-      var(--shimmer-dark-color),
-      var(--shimmer-dark-color),
-      var(--shimmer-light-color),
-      var(--shimmer-dark-color),
-      var(--shimmer-dark-color)
-    );
-
-    animation: var(--scoped-animation-duration) linear slide infinite;
-    background-clip: text;
-  }
-
-  @keyframes slide {
-    from {
-      background-position-x: -100%;
-    }
-    to {
-      background-position-x: 200cqw;
-    }
   }
 </style>

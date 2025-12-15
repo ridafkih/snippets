@@ -11,6 +11,58 @@ const { quote } = Astro.props;
   <span class="quote-reflection">{quote}</span>
 </div>
 <style>
+  :root {
+    --shimmer-light-color: #eee;
+    --shimmer-dark-color: #666;
+  }
+
   div[data-quote] {
+    --quote-text: attr(data-quote);
+
+    width: fit-content;
+    position: relative;
+
+    .quote-size {
+      color: transparent;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .quote-reflection {
+      container-type: inline-size;
+      position: absolute;
+      inset: 0;
+
+      &::before {
+        position: inherit;
+        inset: inherit;
+
+        --text-width: calc(100cqw / 1px);
+        --animation-duration: calc(var(--text-width) * 5ms);
+
+        content: var(--quote-text);
+        color: transparent;
+        background: linear-gradient(
+          to right,
+          var(--shimmer-dark-color),
+          var(--shimmer-dark-color),
+          var(--shimmer-light-color),
+          var(--shimmer-dark-color),
+          var(--shimmer-dark-color)
+        );
+
+        background-clip: text;
+        animation: var(--animation-duration) linear shimmer infinite;
+      }
+    }
+  }
+
+  @keyframes shimmer {
+    from {
+      background-position-x: 0cqw;
+    }
+    to {
+      background-position-x: 100cqw;
+    }
   }
 </style>
