@@ -7,8 +7,8 @@ const { quote } = Astro.props;
 ---
 
 <div data-quote={quote}>
-  <span class="quote-size" aria-hidden="true"></span>
-  <span class="quote-reflection">{quote}</span>
+  <span class="quote-size" aria-hidden="true" data-quote={quote}></span>
+  <span class="quote-reflection" data-quote={quote}>{quote}</span>
 </div>
 <style>
   :root {
@@ -17,8 +17,6 @@ const { quote } = Astro.props;
   }
 
   div[data-quote] {
-    --quote-text: attr(data-quote);
-
     width: fit-content;
     position: relative;
 
@@ -28,7 +26,7 @@ const { quote } = Astro.props;
       color: transparent;
 
       &::before {
-        content: var(--quote-text);
+        content: attr(data-quote);
       }
     }
 
@@ -45,7 +43,7 @@ const { quote } = Astro.props;
         --text-width: calc(100cqw / 1px);
         --animation-duration: calc(var(--text-width) * 5ms);
 
-        content: var(--quote-text);
+        content: attr(data-quote);
         color: transparent;
         background: linear-gradient(
           to right,
