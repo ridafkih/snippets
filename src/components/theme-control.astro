@@ -50,7 +50,7 @@ import ThemeControlIllustration from "./theme-control-illustration.astro";
     align-items: center;
     gap: 0.625rem;
 
-    outline: 2.5px solid var(--color-outline);
+    outline: 0.125rem solid var(--color-outline);
     color: var(--color-label);
 
     transition: 0.12s outline ease;
@@ -60,7 +60,7 @@ import ThemeControlIllustration from "./theme-control-illustration.astro";
     --color-outline: var(--color-highlight);
     --color-label: var(--color-highlight);
 
-    background: color-mix(in srgb, var(--color-outline) 5%, transparent);
+    background: color-mix(in srgb, var(--color-outline) 10%, transparent);
 
     .illustration {
       filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.05));
@@ -78,3 +78,36 @@ import ThemeControlIllustration from "./theme-control-illustration.astro";
     }
   }
 </style>
+
+<script>
+  const radios = document.querySelectorAll<HTMLInputElement>(
+    'input[name="theme"]',
+  );
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+  const applyTheme = (theme: string) => {
+    if (theme === "dark") {
+      document.body.dataset.theme = "dark";
+    } else if (theme === "system") {
+      document.body.dataset.theme = prefersDark.matches ? "dark" : "light";
+    } else {
+      document.body.dataset.theme = "light";
+    }
+  };
+
+  radios.forEach((radio) => {
+    radio.addEventListener("change", () => {
+      if (radio.checked) applyTheme(radio.id);
+    });
+  });
+
+  prefersDark.addEventListener("change", () => {
+    const systemRadio = document.querySelector<HTMLInputElement>("#system");
+    if (systemRadio?.checked) applyTheme("system");
+  });
+
+  const checked = document.querySelector<HTMLInputElement>(
+    'input[name="theme"]:checked',
+  );
+  if (checked) applyTheme(checked.id);
+</script>

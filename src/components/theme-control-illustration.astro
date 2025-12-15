@@ -7,14 +7,16 @@ const { variant = "light" } = Astro.props;
 ---
 
 <div class="illustration" data-variant={variant}>
-  <div class="traffic-lights">
-    <div class="red"></div>
-    <div class="yellow"></div>
-    <div class="green"></div>
+  <div class="window">
+    <div class="traffic-lights">
+      <div class="red"></div>
+      <div class="yellow"></div>
+      <div class="green"></div>
+    </div>
+    <div class="skeleton lg"></div>
+    <div class="skeleton md"></div>
+    <div class="skeleton sm"></div>
   </div>
-  <div class="skeleton lg"></div>
-  <div class="skeleton md"></div>
-  <div class="skeleton sm"></div>
 </div>
 
 <style>
@@ -27,42 +29,45 @@ const { variant = "light" } = Astro.props;
     --illustration-skeleton: #f0f0f0;
     --illustration-outline: #dedede;
 
-    position: relative;
-    overflow: hidden;
     background: var(--illustration-background);
-    border: 1.5px solid var(--illustration-outline);
-    border-radius: 0.625rem;
+    clip-path: inset(0.0625rem round 0.625rem);
 
-    padding: 0.625rem;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    row-gap: 0.25rem;
-    padding-bottom: 1.25rem;
+    overflow: hidden;
 
+    position: relative;
     transition: 0.24s filter ease;
+
     filter: drop-shadow(0px 2px 1px rgba(0, 0, 0, 0.05));
 
-    > * {
-      grid-column-start: 1;
+    &::before {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      backdrop-filter: invert(1) contrast(0.75);
     }
 
     &[data-variant="dark"]::before {
       content: "";
-      position: absolute;
-      inset: 0;
-      backdrop-filter: invert(1) contrast(0.75);
-      z-index: 2;
     }
 
     &[data-variant="system"]::before {
       content: "";
-      position: absolute;
-      inset: 0;
-      backdrop-filter: invert(1) contrast(0.75);
-      z-index: 2;
-
       transform: scaleX(0.5);
       transform-origin: right;
+    }
+
+    .window {
+      padding: 0.6875rem;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      row-gap: 0.25rem;
+      padding-bottom: 1.25rem;
+      border: 0.1875rem solid var(--illustration-outline);
+      border-radius: 0.6875rem;
+
+      > * {
+        grid-column-start: 1;
+      }
     }
   }
 

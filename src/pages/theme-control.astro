@@ -37,10 +37,6 @@ import ThemeSelector from "../components/theme-control.astro";
     font-family: "Outfit", system-ui, sans-serif;
     letter-spacing: -0.0175em;
     line-height: 2em;
-
-    --color-light-mode-background: #f9f9f9;
-    --color-light-mode-text: #000000;
-    --color-highlight: #4766eb;
   }
 
   html,
@@ -50,8 +46,12 @@ import ThemeSelector from "../components/theme-control.astro";
   }
 
   body {
-    background: var(--color-light-mode-background);
-    color: var(--color-light-mode-text);
+    --color-background: #f9f9f9;
+    --color-text: #000000;
+    --color-highlight: #4766eb;
+
+    background: var(--color-background);
+    color: var(--color-text);
 
     margin: auto;
 
@@ -61,5 +61,13 @@ import ThemeSelector from "../components/theme-control.astro";
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    transition: 0.12s background ease;
+
+    &[data-theme="dark"] {
+      --color-background: #0c0c0c;
+      --color-highlight: #5a76f2;
+      color: #ffffff;
+    }
   }
 </style>
