@@ -11,21 +11,13 @@ import ShimmeringText from "../components/shimmering-text.astro";
     <title>Rida F'kih | Text Shimmer Snippets</title>
   </head>
   <body>
-    <ul>
-      <li>
-        <ShimmeringText
-          quote="“So the whole universe,” you said, “it’s just…”"
-        />
-      </li>
-      <li>
-        <ShimmeringText
-          quote="“An egg.” I answered. “Now it’s time for you to move on to your next life.”"
-        />
-      </li>
-      <li>
-        <ShimmeringText quote="“And I just sent you on your way.”" />
-      </li>
-    </ul>
+    <div>
+      <ShimmeringText quote="“So the whole universe,” you said, “it’s just…”" />
+      <ShimmeringText
+        quote="“An egg.” I answered. “Now it’s time for you to move on to your next life.”"
+      />
+      <ShimmeringText quote="“And I just sent you on your way.”" />
+    </div>
   </body>
 </html>
 
@@ -34,12 +26,16 @@ import ShimmeringText from "../components/shimmering-text.astro";
     margin: 0;
     padding: 0;
     list-style: none;
+    box-sizing: border-box;
+  }
+
+  span {
+    font-weight: 200;
   }
 
   :root {
     font-family: "Outfit", system-ui, sans-serif;
-    font-weight: 200;
-    letter-spacing: 0.0125em;
+    letter-spacing: 0.025em;
     line-height: 2em;
   }
 
@@ -50,8 +46,22 @@ import ShimmeringText from "../components/shimmering-text.astro";
   }
 
   body {
-    background: rgba(10, 10, 10, 1);
-    display: grid;
-    place-items: center;
+    background: rgba(4, 4, 4, 1);
+    color: rgba(220, 220, 220, 1);
+
+    max-width: 720px;
+    margin: auto;
+
+    padding: 0 1rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+</style>
+<style>
+  div {
+    width: fit-content;
+    margin: auto;
   }
 </style>

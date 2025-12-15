@@ -60,6 +60,21 @@ const { quote } = Astro.props;
     }
   }
 
+  @supports not (width: calc(100% / 1px * 1px)) {
+    @property --100cqw {
+      syntax: "<length>";
+      initial-value: 0px;
+      inherits: false;
+    }
+
+    div[data-quote] {
+      .quote-reflection::before {
+        --100cqw: 100cqw;
+        --text-width: tan(atan2(var(--100cqw), 1px));
+      }
+    }
+  }
+
   @keyframes shimmer {
     from {
       background-position-x: 0cqw;
