@@ -3,17 +3,30 @@ import ThemeControlIllustration from "./theme-control-illustration.astro";
 ---
 
 <div class="theme-control">
-  <input type="radio" name="theme" id="bottom-left" checked />
-  <label for="bottom-left">
+  <input type="radio" name="theme" id="light" checked />
+  <label for="light">
     <ThemeControlIllustration />
-    <span>Bottom left</span>
+    <span>Light</span>
+  </label>
+
+  <input type="radio" name="theme" id="dark" />
+  <label for="dark">
+    <ThemeControlIllustration variant="dark" />
+    <span>Dark</span>
+  </label>
+
+  <input type="radio" name="theme" id="system" />
+  <label for="system">
+    <ThemeControlIllustration variant="system" />
+    <span>System</span>
   </label>
 </div>
 
 <style>
   .theme-control {
     display: flex;
-    gap: 0.5rem;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   input[type="radio"] {
@@ -23,6 +36,9 @@ import ThemeControlIllustration from "./theme-control-illustration.astro";
   }
 
   label {
+    --color-outline: transparent;
+    --color-label: var(--color-light-mode-text);
+
     width: fit-content;
     cursor: pointer;
     padding: 0.625rem;
@@ -33,19 +49,32 @@ import ThemeControlIllustration from "./theme-control-illustration.astro";
     justify-content: center;
     align-items: center;
     gap: 0.625rem;
+
+    outline: 2.5px solid var(--color-outline);
+    color: var(--color-label);
+
+    transition: 0.12s outline ease;
   }
 
   input[type="radio"]:checked + label {
-    color: var(--color-outline);
-    outline: 2.5px solid var(--color-outline);
+    --color-outline: var(--color-highlight);
+    --color-label: var(--color-highlight);
+
     background: color-mix(in srgb, var(--color-outline) 5%, transparent);
 
-    :global(.illustration) {
-      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.05));
+    .illustration {
+      filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.05));
     }
   }
 
   input[type="radio"]:focus-visible + label {
-    outline: 2.5px solid var(--color-outline);
+    --color-outline: var(--color-highlight);
+    --color-label: var(--color-highlight);
+  }
+
+  @media screen and (min-width: 24rem) {
+    .theme-control {
+      flex-direction: row;
+    }
   }
 </style>

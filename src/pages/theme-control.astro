@@ -1,5 +1,5 @@
 ---
-import ThemeControl from "../components/theme-control.astro";
+import ThemeSelector from "../components/theme-control.astro";
 ---
 
 <html lang="en">
@@ -11,7 +11,7 @@ import ThemeControl from "../components/theme-control.astro";
     <title>Rida F'kih | Text Shimmer Snippets</title>
   </head>
   <body>
-    <ThemeControl />
+    <ThemeSelector />
   </body>
 </html>
 
@@ -21,6 +21,11 @@ import ThemeControl from "../components/theme-control.astro";
     padding: 0;
     list-style: none;
     box-sizing: border-box;
+  }
+
+  input,
+  label {
+    -webkit-tap-highlight-color: transparent;
   }
 
   span {
@@ -33,21 +38,9 @@ import ThemeControl from "../components/theme-control.astro";
     letter-spacing: -0.0175em;
     line-height: 2em;
 
-    --illustration-light-red: #cc6a5b;
-    --illustration-light-yellow: #e4b652;
-    --illustration-light-green: #7ab65b;
-
-    --illustration-light-mode-background: #ffffff;
-    --illustration-light-mode-skeleton: #f0f0f0;
-    --illustration-light-mode-outline: #dedede;
-
-    --illustration-dark-mode-background: #101111;
-    --illustration-dark-mode-skeleton: #2a2a2d;
-    --illustration-dark-mode-outline: #363737;
-
     --color-light-mode-background: #f9f9f9;
     --color-light-mode-text: #000000;
-    --color-outline: #4766eb;
+    --color-highlight: #4766eb;
   }
 
   html,

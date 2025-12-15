@@ -1,4 +1,12 @@
-<div class="illustration">
+---
+interface Props {
+  variant?: "light" | "dark" | "system";
+}
+
+const { variant = "light" } = Astro.props;
+---
+
+<div class="illustration" data-variant={variant}>
   <div class="traffic-lights">
     <div class="red"></div>
     <div class="yellow"></div>
@@ -11,8 +19,18 @@
 
 <style>
   .illustration {
-    background: var(--illustration-light-mode-background);
-    border: 1.5px solid var(--illustration-light-mode-outline);
+    --illustration-red: #cc6a5b;
+    --illustration-yellow: #e4b652;
+    --illustration-green: #7ab65b;
+
+    --illustration-background: #ffffff;
+    --illustration-skeleton: #f0f0f0;
+    --illustration-outline: #dedede;
+
+    position: relative;
+    overflow: hidden;
+    background: var(--illustration-background);
+    border: 1.5px solid var(--illustration-outline);
     border-radius: 0.625rem;
 
     padding: 0.625rem;
@@ -21,10 +39,30 @@
     row-gap: 0.25rem;
     padding-bottom: 1.25rem;
 
+    transition: 0.24s filter ease;
     filter: drop-shadow(0px 2px 1px rgba(0, 0, 0, 0.05));
 
-    * {
+    > * {
       grid-column-start: 1;
+    }
+
+    &[data-variant="dark"]::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      backdrop-filter: invert(1) contrast(0.75);
+      z-index: 2;
+    }
+
+    &[data-variant="system"]::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      backdrop-filter: invert(1) contrast(0.75);
+      z-index: 2;
+
+      transform: scaleX(0.5);
+      transform-origin: right;
     }
   }
 
@@ -32,6 +70,7 @@
     display: flex;
     gap: 0.1875rem;
     padding-bottom: 0.25rem;
+    z-index: 3;
 
     & > div {
       width: 0.375rem;
@@ -40,21 +79,21 @@
     }
 
     .red {
-      background: var(--illustration-light-red);
+      background: var(--illustration-red);
     }
 
     .yellow {
-      background: var(--illustration-light-yellow);
+      background: var(--illustration-yellow);
     }
 
     .green {
-      background: var(--illustration-light-green);
+      background: var(--illustration-green);
     }
   }
 
   .skeleton {
     border-radius: 0.3125rem;
-    background: var(--illustration-light-mode-skeleton);
+    background: var(--illustration-skeleton);
 
     &.lg {
       height: 2rem;
