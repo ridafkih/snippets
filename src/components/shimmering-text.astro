@@ -7,7 +7,7 @@ const { quote } = Astro.props;
 ---
 
 <div data-quote={quote}>
-  <span class="quote-size" aria-hidden="true">{quote}</span>
+  <span class="quote-size" aria-hidden="true"></span>
   <span class="quote-reflection">{quote}</span>
 </div>
 <style>
@@ -23,9 +23,13 @@ const { quote } = Astro.props;
     position: relative;
 
     .quote-size {
-      color: transparent;
       pointer-events: none;
       user-select: none;
+      color: transparent;
+
+      &::before {
+        content: var(--quote-text);
+      }
     }
 
     .quote-reflection {
@@ -34,6 +38,7 @@ const { quote } = Astro.props;
       inset: 0;
 
       &::before {
+        pointer-events: none;
         position: inherit;
         inset: inherit;
 
