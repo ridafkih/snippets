@@ -33,6 +33,7 @@ const { quote } = Astro.props;
     .quote-reflection {
       container-type: inline-size;
       position: absolute;
+      color: transparent;
       inset: 0;
 
       &::before {
@@ -44,7 +45,7 @@ const { quote } = Astro.props;
         --animation-duration: calc(var(--text-width) * 5ms);
 
         content: attr(data-quote);
-        color: transparent;
+        color: inherit;
         background: linear-gradient(
           to right,
           var(--shimmer-dark-color),
