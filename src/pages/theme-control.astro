@@ -51,6 +51,7 @@ import ThemeSelector from "../components/theme-control.astro";
     --color-background: #f9f9f9;
     --color-text: #000000;
     --color-highlight: #4766eb;
+    --color-highlight-mix-percentage: 5%;
 
     background: var(--color-background);
     color: var(--color-text);
@@ -64,11 +65,10 @@ import ThemeSelector from "../components/theme-control.astro";
     justify-content: center;
     align-items: center;
 
-    transition: 0.12s background ease;
-
     &[data-theme="dark"] {
       --color-background: #262626;
       --color-highlight: #5a76f2;
+      --color-highlight-mix-percentage: 10%;
       color: #ffffff;
     }
   }
